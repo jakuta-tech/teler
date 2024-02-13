@@ -1,4 +1,4 @@
-module teler.app
+module github.com/kitabisa/teler
 
 go 1.18
 
@@ -8,6 +8,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/goji/httpauth v0.0.0-20160601135302-2da839ab0f4d
 	github.com/kirsle/configdir v0.0.0-20170128060238-e45d2f54772f
+	github.com/kitabisa/tailpipe v1.0.0
 	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/panjf2000/ants/v2 v2.5.0
 	github.com/projectdiscovery/gologger v1.1.4
@@ -15,12 +16,12 @@ require (
 	github.com/r3labs/sse/v2 v2.8.0
 	github.com/remeh/sizedwaitgroup v1.0.0
 	github.com/sahilm/fuzzy v0.1.0
-	github.com/satyrius/gonx v1.3.0
+	github.com/satyrius/gonx v1.4.0
 	github.com/slack-go/slack v0.8.2
 	github.com/valyala/fastjson v1.6.3
 	go.uber.org/automaxprocs v1.5.1
 	goji.io v2.0.2+incompatible
-	golang.org/x/text v0.3.7
+	golang.org/x/text v0.6.0
 	gopkg.in/validator.v2 v2.0.0-20200605151824-2b28d334fa05
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -45,7 +46,7 @@ require (
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
-	golang.org/x/sys v0.0.0-20210309074719-68d13333faf2 // indirect
+	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/cenkalti/backoff.v1 v1.1.0 // indirect
 )

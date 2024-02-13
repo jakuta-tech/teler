@@ -1,3 +1,27 @@
+> [!IMPORTANT]  
+> Dear users,
+> 
+> We wanted to share some important updates regarding the development of teler IDS.
+> 
+> 🛑 The development of teler IDS is currently on hold. However, we're thrilled to inform you that we've decided to take a bold step by embarking on a complete refactor, starting from scratch to enhance the overall development process. 🚀
+> 
+> In parallel, we're actively laying down the roadmap for teler IDS v3. 📝<br>
+> What we can reveal at this point is that version 3 will leverage eBPF & [teler-waf](https://github.com/kitabisa/teler-waf) as its support, promising advanced features and capabilities. 🌟
+> 
+> If you have feedback or suggestions regarding the features you'd like to see in teler IDS v3, kindly participate in our anonymous survey 👉 https://s.surveyplanet.com/8he6p7rq
+> 
+> Stay tuned for more updates as we continue to innovate and enhance our intrusion detection system! Tipis-tipis asal menyala abangkuuhh! 🔥🔝🙌🏼
+> 
+> Best!<br>
+> dw1
+>
+> ---
+>
+> <sub>As announced in [teler-announce#Fm8Yjh_4of0](https://groups.google.com/g/teler-announce/c/Fm8Yjh_4of0).</sub>
+
+> [!NOTE]
+> In the meantime, you can install and download the latest **v2** version to continue using it.
+
 <p align="center">
   <a href="#"><img alt="teler" src="https://user-images.githubusercontent.com/25837540/97091757-7200d880-1668-11eb-82c4-e5c4971d2bc8.png" height="300" /></a>
   <h3 align="center"><b>teler</b></h3>
@@ -36,9 +60,13 @@
 |--------- |--------------- |
 | [![teler](https://user-images.githubusercontent.com/25837540/97096468-f8ccaa00-1696-11eb-8830-0d3a7be45a2d.gif)](#) | [![dashboard](https://user-images.githubusercontent.com/25837540/175797412-1921c0e8-c4dc-4e2f-a29d-1c0208a86d22.gif)](#) |
 
-> **Note**:
+> [!NOTE]
 > If you upgrade from prior to v2 frontwards there will be some **break changes** that affect configuration files. 
 > Appropriate adaptations can refer to [teler.example.yaml](https://github.com/kitabisa/teler/blob/v2/teler.example.yaml) file.
+
+**See also:**
+
+- [kitabisa/teler-waf](https://github.com/kitabisa/teler-waf): teler-waf is a Go HTTP middleware that provide teler IDS functionality to protect against web-based attacks and improve the security of Go-based web applications. It is highly configurable and easy to integrate into existing Go applications.
 
 ## Table of Contents
 - [Features](#features)
@@ -95,6 +123,7 @@ All related documentation about installation, usage & configuration is on **[tel
 - [teler - Protect Your WebApp!](https://dw1.io/files/teler%20-%20Protect%20Your%20WebApp.pdf) Talks were brought to the **OWASP Jakarta: Virtual AppSec Indonesia 2020** event.
 - [Tutorial: Cyber Threat Hunting - Useful Threat Hunting Tools (Part One)](https://youtu.be/0m54WOXO6Gc), Semi Yulianto gave a brief explanation and how to use **teler** in the video.
 - [Empowering Teler HTTP Intrusion Detection as WAF with Fail2ban](https://link.medium.com/OXVZIMkZEeb).
+- [Detecting web attacks using Wazuh and teler](https://wazuh.com/blog/detecting-web-attacks-using-wazuh-and-teler/), integrate teler with a unified XDR and SIEM platform, Wazuh.
 
 ## Contributors
 
@@ -146,6 +175,12 @@ All external resources used in this teler are **NOT** provided by us. See all pe
 ## Changes
 
 For changes, see the [CHANGELOG.md](/CHANGELOG.md).
+
+## Community
+
+We use the Google Groups as our dedicated mailing list. Subscribe to [teler-announce](https://groups.google.com/g/teler-announce) via [teler-announce+subscribe@googlegroups.com](mailto:teler-announce+subscribe@googlegroups.com) for important announcements, such as the availability of new releases. This subscription will keep you informed about significant developments related to [teler IDS](https://github.com/kitabisa/teler), [teler WAF](https://github.com/kitabisa/teler-waf), [teler Proxy](https://github.com/kitabisa/teler-proxy), and [teler Resources](https://github.com/kitabisa/teler-resources).
+
+For any [inquiries](https://github.com/kitabisa/teler/discussions/categories/q-a), [discussions](https://github.com/kitabisa/teler/discussions), or [issues](https://github.com/kitabisa/teler/issues) are being tracked here on GitHub. This is where we actively manage and address these aspects of our community engagement.
 
 ## License
 

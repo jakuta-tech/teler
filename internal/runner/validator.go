@@ -5,18 +5,18 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"reflect"
 	"strings"
 
+	"github.com/kitabisa/teler/common"
+	"github.com/kitabisa/teler/pkg/errors"
+	"github.com/kitabisa/teler/pkg/matchers"
+	"github.com/kitabisa/teler/pkg/parsers"
+	"github.com/kitabisa/teler/pkg/utils"
 	"gopkg.in/validator.v2"
-	"teler.app/common"
-	"teler.app/pkg/errors"
-	"teler.app/pkg/matchers"
-	"teler.app/pkg/parsers"
-	"teler.app/pkg/utils"
 )
 
 func validate(options *common.Options) {
@@ -103,7 +103,7 @@ func customs(options *common.Options) {
 			matchers.IsBlank(rules[j].Element, "Custom threat rules element")
 			elm := fmt.Sprint("$", rules[j].Element)
 
-			if !matchers.IsMatch(fmt.Sprint(`\`, elm), cfg.Logformat) {
+			if !matchers.IsAny(elm, cfg.Logformat) {
 				err = strings.Replace(errors.ErrNoElement, ":element", elm, -1)
 				err = strings.Replace(err, ":category", custom[i].Name, -1)
 
@@ -131,7 +131,7 @@ func zinc(options *common.Options) string {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		errors.Exit(fmt.Sprint(errors.ErrHealthZinc, ": ", err.Error()))
 	}
@@ -163,7 +163,7 @@ func zinc(options *common.Options) string {
 	}
 	defer resp.Body.Close()
 
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
 	if err != nil {
 		errors.Exit(fmt.Sprint(errors.ErrAuthZinc, ": ", err.Error()))
 	}

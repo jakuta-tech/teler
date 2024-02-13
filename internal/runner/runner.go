@@ -6,24 +6,26 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/kitabisa/tailpipe"
+	"github.com/kitabisa/teler/common"
+	"github.com/kitabisa/teler/internal/alert"
+	"github.com/kitabisa/teler/internal/event"
+	"github.com/kitabisa/teler/pkg/errors"
+	"github.com/kitabisa/teler/pkg/metrics"
+	"github.com/kitabisa/teler/pkg/teler"
 	"github.com/logrusorgru/aurora"
 	"github.com/panjf2000/ants/v2"
 	"github.com/projectdiscovery/gologger"
 	"github.com/remeh/sizedwaitgroup"
 	"github.com/satyrius/gonx"
-	"teler.app/common"
-	"teler.app/internal/alert"
-	"teler.app/internal/event"
-	"teler.app/pkg/errors"
-	"teler.app/pkg/metrics"
-	"teler.app/pkg/teler"
 )
 
 // New read & pass stdin log
 func New(options *common.Options) {
 	var (
-		input *os.File
-		pass  int
+		reader *gonx.Reader
+		input  *os.File
+		pass   int
 	)
 
 	go metric(options)
@@ -83,9 +85,20 @@ func New(options *common.Options) {
 
 	config := options.Configs
 	format := removeLBR(config.Logformat)
-	buffer := gonx.NewReader(input, format)
+
+	if !options.Stdin && options.Follow {
+		f, e := tailpipe.Open(options.Input)
+		if e != nil {
+			errors.Exit(e.Error())
+		}
+
+		reader = gonx.NewReader(f, format)
+	} else {
+		reader = gonx.NewReader(input, format)
+	}
+
 	for {
-		line, err := buffer.Read()
+		line, err := reader.Read()
 		if err == io.EOF {
 			break
 		}

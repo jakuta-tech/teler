@@ -24,7 +24,7 @@ help:
 build:
 	@echo "--- Building ${APP_NAME} ${VERSION}"
 	@echo "GOPATH=${GOPATH}"
-	go build -ldflags "-s -w -X teler.app/common.Version=${VERSION}" -buildvcs=false -o ./bin/${APP_NAME} .
+	go build -ldflags "-s -w -X github.com/kitabisa/teler/common.Version=${VERSION}" -buildvcs=false -o ./bin/${APP_NAME} .
 
 build-all:
 	@echo "--- Cross-platform build ${APP_NAME} ${VERSION}"
@@ -33,7 +33,7 @@ build-all:
 		echo "       See https://goreleaser.com/install/" >&2; \
 		exit 1; \
 	fi; \
-	goreleaser build --rm-dist --skip-validate --timeout=30m
+	goreleaser build --clean --skip=validate --snapshot --timeout=30m
 
 test: lint build-all clean
 	# @echo "--- Testing ${APP_NAME} ${VERSION}"

@@ -1,7 +1,7 @@
 package requests
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -9,23 +9,17 @@ import (
 	"time"
 
 	"github.com/briandowns/spinner"
-	"teler.app/common"
-	"teler.app/pkg/cache"
-	"teler.app/pkg/errors"
-	"teler.app/resource"
+	"github.com/kitabisa/teler/common"
+	"github.com/kitabisa/teler/pkg/cache"
+	"github.com/kitabisa/teler/pkg/errors"
+	"github.com/kitabisa/teler/resource"
 )
 
 var (
 	rsrc    *resource.Resources
-	exclude bool
 	content []byte
 	errCon  error
-	spin    *spinner.Spinner
 )
-
-func init() {
-	spin = spinner.New(spinner.CharSets[11], 90*time.Millisecond, spinner.WithWriter(os.Stderr))
-}
 
 // Resources is to getting all available resources
 func Resources(options *common.Options) {
@@ -34,8 +28,10 @@ func Resources(options *common.Options) {
 }
 
 func getRules(options *common.Options) {
-	client := Client()
+	var spin = spinner.New(spinner.CharSets[11], 90*time.Millisecond, spinner.WithWriter(os.Stderr))
+	var exclude bool
 
+	client := Client()
 	rules := options.Configs.Rules
 	excludes := rules.Threat.Excludes
 	isCached := rules.Cache
@@ -47,8 +43,8 @@ func getRules(options *common.Options) {
 	for i := 0; i < len(rsrc.Threat); i++ {
 		exclude = false
 		threat := reflect.ValueOf(&rsrc.Threat[i]).Elem()
-		fname := threat.FieldByName("Filename").String()
-		cat := threat.FieldByName("Category").String()
+		fname := rsrc.Threat[i].Filename
+		cat := rsrc.Threat[i].Category
 
 		for x := 0; x < len(excludes); x++ {
 			if excludes[x] == cat {
@@ -64,7 +60,7 @@ func getRules(options *common.Options) {
 		spin.Suffix = " Getting \"" + cat + "\" resource..."
 
 		if cache.Check() && isCached {
-			content, errCon = ioutil.ReadFile(filepath.Join(cache.Path, fname))
+			content, errCon = os.ReadFile(filepath.Join(cache.Path, fname))
 			if errCon != nil {
 				cache.Purge()
 
@@ -85,7 +81,7 @@ func getRules(options *common.Options) {
 				errors.Exit(err.Error())
 			}
 
-			content, errCon = ioutil.ReadAll(res.Body)
+			content, errCon = io.ReadAll(res.Body)
 			if errCon != nil {
 				errors.Exit(errCon.Error())
 			}

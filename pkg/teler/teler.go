@@ -10,10 +10,10 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/kitabisa/teler/common"
+	"github.com/kitabisa/teler/pkg/matchers"
 	"github.com/satyrius/gonx"
 	"github.com/valyala/fastjson"
-	"teler.app/common"
-	"teler.app/pkg/matchers"
 )
 
 // Analyze logs from threat resources
@@ -52,6 +52,7 @@ func Analyze(options *common.Options, logs *gonx.Entry) (bool, map[string]string
 					if err != nil {
 						continue
 					}
+					quote := regexp.QuoteMeta(dec)
 
 					if isWhitelist(options, p+"="+dec) {
 						continue
@@ -61,7 +62,6 @@ func Analyze(options *common.Options, logs *gonx.Entry) (bool, map[string]string
 					for _, v := range cwa.GetArray("filters") {
 						log["category"] = cat + ": " + string(v.GetStringBytes("description"))
 						log["element"] = "request_uri"
-						quote := regexp.QuoteMeta(dec)
 
 						match = matchers.IsMatch(
 							string(v.GetStringBytes("rule")),
@@ -229,7 +229,7 @@ func Analyze(options *common.Options, logs *gonx.Entry) (bool, map[string]string
 					cont = strings.ReplaceAll(cont, `.%EXT%`, ext)
 				}
 
-				match = matchers.IsMatch(trimFirst(req.Path), cont)
+				match = matchers.IsAny(trimFirst(req.Path), cont)
 			}
 		}
 

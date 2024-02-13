@@ -6,10 +6,10 @@ import (
 	"os"
 	"strings"
 
-	"teler.app/common"
-	"teler.app/pkg/cache"
-	"teler.app/pkg/errors"
-	"teler.app/pkg/requests"
+	"github.com/kitabisa/teler/common"
+	"github.com/kitabisa/teler/pkg/cache"
+	"github.com/kitabisa/teler/pkg/errors"
+	"github.com/kitabisa/teler/pkg/requests"
 )
 
 // ParseOptions will parse args/opts
@@ -21,6 +21,9 @@ func ParseOptions() *common.Options {
 
 	flag.StringVar(&options.Input, "i", "", "")
 	flag.StringVar(&options.Input, "input", "", "")
+
+	flag.BoolVar(&options.Follow, "f", false, "")
+	flag.BoolVar(&options.Follow, "follow", false, "")
 
 	flag.IntVar(&options.Concurrency, "x", 20, "")
 	flag.IntVar(&options.Concurrency, "concurrent", 20, "")
@@ -43,6 +46,7 @@ func ParseOptions() *common.Options {
 			"Options:",
 			"  -c, --config <FILE>         teler configuration file",
 			"  -i, --input <FILE>          Analyze logs from data persistence rather than buffer stream",
+			"  -f, --follow                Specify if the logs should be streamed",
 			"  -x, --concurrent <i>        Set the concurrency level to analyze logs (default: 20)",
 			"      --rm-cache              Removes all cached resources",
 			"  -v, --version               Show current teler version",
